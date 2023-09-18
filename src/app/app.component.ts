@@ -12,6 +12,9 @@ import { PersonasService } from "./service/personas/personas.service";
 export class AppComponent implements OnInit{
   title = 'personaTest';
   personaForm: FormGroup;
+  paises: any;
+  provincias: any;
+  personas: any;
 
   constructor(
     public fb: FormBuilder,
@@ -30,10 +33,43 @@ export class AppComponent implements OnInit{
       pais: ['', Validators.required],
       provincia: ['', Validators.required],
     });
+
+    this.paisesService.getPaises().subscribe((data: any) => {
+      this.paises = data;
+      //console.log(data);
+    }, (error) => { console.log(error) } );
+
+    /*this.personaForm.get('pais')!.valueChanges.subscribe(value => {
+      this.provinciasService.getAllProvinciasByPais(value.id).subscribe(resp => {
+          this.provincias = resp;
+        },
+        error => { console.error(error) }
+      );
+    });*/
+
   }
 
-  guardarPersona() {
+  savePersona() {
+    this.personasService.savePersona(this.personaForm.value).subscribe((data: any) => {
+      this.personaForm.reset();
+      this.personaForm.setErrors(null);
+      //this.personas=this.personas.filter(persona=> data.id!==persona.id);
+      this.personas.push(data);
+    }, (error) => { console.log(error) } );
+  }
 
+  getAllProvinciasByPais(event: any) {
+    this.provinciasService.getAllProvinciasByPais(event.target.value).subscribe((data: any) => {
+      this.provincias = data;
+      //console.log(data);
+    }, (error) => { console.log(error) } );
+  }
+
+  getPersonas() {
+    this.personasService.getPersonas().subscribe((data: any) => {
+      this.personas = data;
+      //console.log(data);
+    }, (error) => { console.log(error) } );
   }
 
 }
