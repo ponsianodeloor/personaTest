@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -8,6 +10,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     BrowserModule
   ],
   providers: [],
