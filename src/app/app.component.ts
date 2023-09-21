@@ -50,11 +50,17 @@ export class AppComponent implements OnInit{
   }
 
   savePersona() {
+
+    //modificar el objeto pais para que solo tenga el id en json hijo
+    this.personaForm.value.pais = {id: this.personaForm.value.pais};
+    this.personaForm.value.provincia = {id: this.personaForm.value.provincia};
+
     this.personasService.savePersona(this.personaForm.value).subscribe((data: any) => {
+
       this.personaForm.reset();
       this.personaForm.setErrors(null);
       //this.personas=this.personas.filter(persona=> data.id!==persona.id);
-      this.personas.push(data);
+      //this.personas.push(data);
     }, (error) => { console.log(error) } );
   }
 
